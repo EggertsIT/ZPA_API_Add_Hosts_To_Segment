@@ -35,6 +35,7 @@ but let's stay basic ...
  
  $client_id = 'xxxxxxxxxxxx'
  $client_secret = 'yyyyyyyyyyyyyyy'
+
  
  # Authentication URL
  $authUrl = 'https://config.private.zscaler.com/signin'
@@ -75,8 +76,15 @@ but let's stay basic ...
  # GET the existing app segment -> Adjust id's XXXXXXXXXXXX -> fetch it from your ZPA API Portal swagger
  $url = 'https://config.private.zscaler.com/mgmtconfig/v1/admin/customers/xxxxxxxxxxxxx/application/xxxxxxxxxxxx'
  $response = Invoke-RestMethod -Uri $url -Method Get -Headers $headers
- 
- Write-Output "Configuration loaded for:"
+
+ # Create a backup
+ $timestamp = Get-Date -Format "yyyyMMdd_HHmmss"
+ $responseJson = $response | ConvertTo-Json
+ $responseJson | Out-File -FilePath $backupFilePath -Encoding UTF8
+ $backupFilePath = "C:\Path\To\Backup\ZPA_Config_Backup_$timestamp.txt"
+ Write-Output "Configuration loaded and backed up to $backupFilePath"
+   
+ Write-Output "Configuration for:"
  Write-Output $response.name
 
  
