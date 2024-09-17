@@ -80,8 +80,8 @@ but let's stay basic ...
  # Create a backup
  $timestamp = Get-Date -Format "yyyyMMdd_HHmmss"
  $responseJson = $response | ConvertTo-Json
- $responseJson | Out-File -FilePath $backupFilePath -Encoding UTF8
  $backupFilePath = "C:\Path\To\Backup\ZPA_Config_Backup_$timestamp.txt"
+ $responseJson | Out-File -FilePath $backupFilePath -Encoding UTF8
  Write-Output "Configuration loaded and backed up to $backupFilePath"
    
  Write-Output "Configuration for:"
